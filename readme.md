@@ -1,6 +1,6 @@
 # Event Listing Challenge
 
-WordPress / PHP coding challenge: build a simple event listing. Approach and implementation are open; evaluation covers functionality, problem-solving, coding practices, and design.
+WordPress / PHP coding challenge: build a simple event listing.
 
 ## Requirements
 
