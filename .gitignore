@@ -7,29 +7,24 @@ nginx/certs/*
 # Logs / debug
 *.log
 debug.log
-npm-debug.log*
 
 # Docker persisted data
-data/
 mysql-data/
 wordpress-data/
 
 # WordPress runtime
-wp-content/uploads/
-wp-content/upgrade/
-wp-content/cache/
-wp-content/backup*/
-wp-content/upgrade-temp-backup/
-wp-content/ai1wm-backups/
-wp-content/debug.log
+src/uploads/
+src/upgrade/
+src/cache/
+src/backup*/
+src/upgrade-temp-backup/
+src/ai1wm-backups/
+src/debug.log
+src/object-cache.php
+src/advanced-cache.php
+src/themes/twentytwentythree
+src/themes/twentytwentyfour
 
-wp-content/object-cache.php
-wp-content/advanced-cache.php
-/wordpress/
-wp-admin/
-wp-includes/
-/wp-*.php
-/index.php
-/xmlrpc.php
-/license.txt
-/readme.html
+# Bundled plugins (not part of the submission)
+src/plugins/akismet/
+src/plugins/hello.php

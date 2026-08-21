@@ -9,3 +9,10 @@ WordPress / PHP coding challenge: build a simple event listing.
 **Archive page:** List all events ordered by event date. Each item shows title, location (optional Google Maps), date, and a link to the external source. Include “Add to Google Calendar” plus one other calendar option.
 
 **General:** Custom code (no third-party plugins for this task). Following best WordPress Coding Standards.
+
+## Setup steps
+
+1. Copy .env.example → .env
+2. docker compose up --build
+3. Open the site, run the WordPress installer
+4. Activate plugin
