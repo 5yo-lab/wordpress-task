@@ -22,8 +22,7 @@ src/ai1wm-backups/
 src/debug.log
 src/object-cache.php
 src/advanced-cache.php
-src/themes/twentytwentythree
-src/themes/twentytwentyfour
+src/themes/twenty*
 
 # Bundled plugins (not part of the submission)
 src/plugins/akismet/
