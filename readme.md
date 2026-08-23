@@ -24,3 +24,4 @@ WordPress / PHP coding challenge: build a simple event listing.
 3. Open the site, run the WordPress installer
 4. Activate plugin
    4.1. Highly reccomended to go to Settings->Permalinks and change behaviour to anything othern than plain so plugin loads correctly
+   4.2. Logic can be found at /events page
