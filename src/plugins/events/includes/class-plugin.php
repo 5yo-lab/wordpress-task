@@ -38,6 +38,9 @@ final class Plugin {
 
 		$this->registration = new Registration();
 		$this->registration->register();
+
+		$this->event_archive = new Event_Archive();
+		$this->event_archive->register();
 	}
 
 	public static function activate(): void {
