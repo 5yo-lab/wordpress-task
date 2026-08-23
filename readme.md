@@ -23,3 +23,4 @@ WordPress / PHP coding challenge: build a simple event listing.
 2. docker compose up --build
 3. Open the site, run the WordPress installer
 4. Activate plugin
+   4.1. Highly reccomended to go to Settings->Permalinks and change behaviour to anything othern than plain so plugin loads correctly
