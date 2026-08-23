@@ -19,6 +19,8 @@ final class Plugin {
 
 	private Registration $registration;
 
+	private Event_Archive $event_archive;
+
 	public static function instance(): Plugin {
 		if (null === self::$instance) {
 			self::$instance = new self();
