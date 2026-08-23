@@ -23,6 +23,9 @@ get_header();
 				$outlook_calendar_url = Event_Archive::get_outlook_calendar_url($post_id);
 				?>
 				<li class="events-list__item">
+					<?php if (has_post_thumbnail()) : ?>
+						<p><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium'); ?></a></p>
+					<?php endif; ?>
 					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 
 					<?php if ('physical' === $type) : ?>
