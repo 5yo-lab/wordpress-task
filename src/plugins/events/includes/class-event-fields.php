@@ -181,12 +181,12 @@ class Event_Fields {
 
 		$deps = array('jquery');
 
-		if ($this->get_maps_api_key()) {
+		if (defined('EVENTS_GOOGLE_MAPS_API_KEY') && EVENTS_GOOGLE_MAPS_API_KEY) {
 			wp_enqueue_script(
 				'google-maps',
 				add_query_arg(
 					array(
-						'key'       => $this->get_maps_api_key(),
+						'key'       => EVENTS_GOOGLE_MAPS_API_KEY,
 						'libraries' => 'places',
 					),
 					'https://maps.googleapis.com/maps/api/js'
@@ -457,13 +457,5 @@ class Event_Fields {
 		}
 
 		return round((float) $value, 7);
-	}
-
-	private function get_maps_api_key(): string {
-		if (defined('EVENTS_GOOGLE_MAPS_API_KEY')) {
-			return (string) EVENTS_GOOGLE_MAPS_API_KEY;
-		}
-
-		return '';
 	}
 }

@@ -19,20 +19,17 @@ get_header();
 				$type = get_post_meta($post_id, Event_Fields::TYPE, true);
 				$location = get_post_meta($post_id, Event_Fields::LOCATION, true);
 				$source_url = get_post_meta($post_id, Event_Fields::URL, true);
-				$map_url = Event_Archive::get_map_url($post_id);
 				$google_calendar_url = Event_Archive::get_google_calendar_url($post_id);
 				$outlook_calendar_url = Event_Archive::get_outlook_calendar_url($post_id);
 				?>
 				<li class="events-list__item">
 					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 
-					<?php if ('physical' === $type && $location) : ?>
-						<p>
-							<?php echo esc_html($location); ?>
-							<?php if ($map_url) : ?>
-								<a href="<?php echo esc_url($map_url); ?>" target="_blank" rel="noopener"><?php esc_html_e('(Google Maps)', 'events'); ?></a>
-							<?php endif; ?>
-						</p>
+					<?php if ('physical' === $type) : ?>
+						<?php if ($location) : ?>
+							<p><?php echo esc_html($location); ?></p>
+						<?php endif; ?>
+						<?php echo Event_Archive::render_map($post_id); ?>
 					<?php endif; ?>
 
 					<?php if ($date) : ?>

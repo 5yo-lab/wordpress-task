@@ -34,6 +34,53 @@ class Event_Archive {
 	}
 
 	public static function get_map_url(int $post_id): string {
+		$query = self::get_map_query($post_id);
+		if ('' === $query) {
+			return '';
+		}
+
+		return add_query_arg(
+			array('api' => '1', 'query' => $query),
+			'https://www.google.com/maps/search/'
+		);
+	}
+
+	public static function render_map(int $post_id): string {
+		$map_url = self::get_map_url($post_id);
+		if ('' === $map_url) {
+			return '';
+		}
+
+		if (!defined('EVENTS_GOOGLE_MAPS_API_KEY') || '' === EVENTS_GOOGLE_MAPS_API_KEY) {
+			return '<p><a href="' . esc_url($map_url) . '" target="_blank" rel="noopener">' . esc_html__('View on Google Maps', 'events') . '</a></p>';
+		}
+
+		$embed_url = add_query_arg(
+			array(
+				'key' => EVENTS_GOOGLE_MAPS_API_KEY,
+				'q'   => self::get_map_query($post_id),
+			),
+			'https://www.google.com/maps/embed/v1/place'
+		);
+
+		return wp_kses(
+			'<iframe class="events-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' . esc_url($embed_url) . '" width="600" height="300" style="border:0;" allowfullscreen></iframe>',
+			array(
+				'iframe' => array(
+					'class'            => true,
+					'loading'          => true,
+					'referrerpolicy'   => true,
+					'src'              => true,
+					'width'            => true,
+					'height'           => true,
+					'style'            => true,
+					'allowfullscreen'  => true,
+				),
+			)
+		);
+	}
+
+	private static function get_map_query(int $post_id): string {
 		if ('physical' !== get_post_meta($post_id, Event_Fields::TYPE, true)) {
 			return '';
 		}
@@ -43,17 +90,14 @@ class Event_Archive {
 		$location = get_post_meta($post_id, Event_Fields::LOCATION, true);
 
 		if (is_numeric($latitude) && is_numeric($longitude)) {
-			$query = $latitude . ',' . $longitude;
-		} elseif ('' !== $location) {
-			$query = $location;
-		} else {
-			return '';
+			return $latitude . ',' . $longitude;
 		}
 
-		return add_query_arg(
-			array('api' => '1', 'query' => $query),
-			'https://www.google.com/maps/search/'
-		);
+		if ('' !== $location) {
+			return (string) $location;
+		}
+
+		return '';
 	}
 
 	public static function get_google_calendar_url(int $post_id): string {
