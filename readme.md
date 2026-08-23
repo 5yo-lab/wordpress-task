@@ -10,6 +10,13 @@ WordPress / PHP coding challenge: build a simple event listing.
 
 **General:** Custom code (no third-party plugins for this task). Following best WordPress Coding Standards.
 
+### Caveats
+
+**Calendar implementation:** Google Calendar (required options) + Outlook as second option, no .ics, direct links with whole day events
+**Google Maps:** Use Google Maps API key with enabled Cloud console or if not present fallback to a direct link to Google Maps
+**Register form with X fields:** name, email, seats
+**Extra fields:** image left out for internal WordPress banner as to avoid double work
+
 ## Setup steps
 
 1. Copy .env.example → .env
