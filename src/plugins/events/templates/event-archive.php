@@ -1,6 +1,9 @@
 <?php
 defined('ABSPATH') || exit;
 
+use Event_Listing\Event_Archive;
+use Event_Listing\Event_Fields;
+
 get_header();
 ?>
 
@@ -9,26 +12,52 @@ get_header();
 
 	<?php if (have_posts()) : ?>
 		<ul class="events-list">
-
 			<?php while (have_posts()) : the_post(); ?>
+				<?php
+				$post_id = get_the_ID();
+				$date = get_post_meta($post_id, Event_Fields::DATE, true);
+				$type = get_post_meta($post_id, Event_Fields::TYPE, true);
+				$location = get_post_meta($post_id, Event_Fields::LOCATION, true);
+				$source_url = get_post_meta($post_id, Event_Fields::URL, true);
+				$map_url = Event_Archive::get_map_url($post_id);
+				$google_calendar_url = Event_Archive::get_google_calendar_url($post_id);
+				$outlook_calendar_url = Event_Archive::get_outlook_calendar_url($post_id);
+				?>
 				<li class="events-list__item">
 					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-					<?php
-					$date = get_post_meta(get_the_ID(), Event_Listing\Event_Fields::DATE, true);
-					if ($date) {
-						echo '<p>' . esc_html($date) . '</p>';
-					}
-					?>
+
+					<?php if ('physical' === $type && $location) : ?>
+						<p>
+							<?php echo esc_html($location); ?>
+							<?php if ($map_url) : ?>
+								<a href="<?php echo esc_url($map_url); ?>" target="_blank" rel="noopener"><?php esc_html_e('(Google Maps)', 'events'); ?></a>
+							<?php endif; ?>
+						</p>
+					<?php endif; ?>
+
+					<?php if ($date) : ?>
+						<p><?php echo esc_html($date); ?></p>
+					<?php endif; ?>
+
+					<?php if ($source_url) : ?>
+						<p><a href="<?php echo esc_url($source_url); ?>" target="_blank" rel="noopener"><?php esc_html_e('External source', 'events'); ?></a></p>
+					<?php endif; ?>
+
+					<?php if ($google_calendar_url) : ?>
+						<p><a href="<?php echo esc_url($google_calendar_url); ?>" target="_blank" rel="noopener"><?php esc_html_e('Add to Google Calendar', 'events'); ?></a></p>
+					<?php endif; ?>
+
+					<?php if ($outlook_calendar_url) : ?>
+						<p><a href="<?php echo esc_url($outlook_calendar_url); ?>" target="_blank" rel="noopener"><?php esc_html_e('Add to Outlook Calendar', 'events'); ?></a></p>
+					<?php endif; ?>
 				</li>
 			<?php endwhile; ?>
-
 		</ul>
 
 		<?php the_posts_pagination(); ?>
 	<?php else : ?>
 		<p><?php esc_html_e('No events found.', 'events'); ?></p>
 	<?php endif; ?>
-    
 </main>
 
 <?php
