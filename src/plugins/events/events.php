@@ -20,6 +20,8 @@ define( 'EVENTS_URL', plugin_dir_url( __FILE__ ) );
 
 require_once EVENTS_PATH . 'includes/class-post-type.php';
 require_once EVENTS_PATH . 'includes/class-event-fields.php';
+require_once EVENTS_PATH . 'includes/class-registration-table.php';
+require_once EVENTS_PATH . 'includes/class-registration.php';
 require_once EVENTS_PATH . 'includes/class-plugin.php';
 
 Event_Listing\Plugin::instance();
